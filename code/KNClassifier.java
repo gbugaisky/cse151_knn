@@ -23,7 +23,7 @@ public class KNClassifier
 
 		//for each value of k
 
-		int[6] kVals = {1, 3, 5, 11, 16, 21};
+		int[] kVals = {1, 3, 5, 11, 16, 21};
 
 		for (int i = 0; i < 6; i++)
 		{
