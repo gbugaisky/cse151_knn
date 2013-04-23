@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-
+import java.lang.Math;
 
 public class KNClassifier
 {
@@ -34,7 +34,8 @@ public class KNClassifier
 				}
 			};
 
-		
+			System.out.println("Evaluating k=" + kVals[i]);
+			System.out.println("Actual\tEvaluated");
 
 			Iterator<Integer[]> testEl = testList.iterator();
 			while (testEl.hasNext()) {
@@ -60,13 +61,35 @@ public class KNClassifier
 
 				//figure out which of the labels we should use
 				Integer[10] labelGet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-                while !(kElements.isEmpty())
+                while (!kElements.isEmpty())
                 {
                     Integer temp = kElements.poll()[1];
-                    labelGet[temp - 1] += 1;
+                    labelGet[temp] += 1;
                 }
                 
+                Integer greatest = 0;
+
+                for (int j = 1; j < 10; j++)
+                {
+                	if (labelGet[j] > labelGet[greatest])
+                	{
+                		greatest = j;
+                	}
+
+                	else if (labelGet[j] == labelGet[greatest])
+                	{
+                		if (Math.random() < 0.5)
+                		{
+                			greatest = j;
+                		}
+                	}
+                }
+
 				//and if the label doesn't match the input label, print a line.
+                if (testing[testing.length-1] != greatest)
+                {
+                	System.out.println(testing[testing.length-1] + "\t" + greatest);
+                }
 
 				//tidy up for the next loop
 				kElements.clear();
