@@ -29,6 +29,7 @@ public class KNClassifier
 
         for (int i = 0; i < 6; i++)
         {
+            int numErrors = 0;
             int currentK = kVals[i];
             //2. Create a priority queue that will hold the k best candidates
             kElements = new PriorityQueue<Integer[]>(currentK, 
@@ -61,7 +62,7 @@ public class KNClassifier
                     //if our distance is shorter, then poll
                         kElements.poll();
                     //and then add 
-                        kElements.add( new Integer[] {distance, testing[testing.length-1]});
+                        kElements.add( new Integer[] {distance, comparison[comparison.length-1]});
                     }
                     
                 }
@@ -70,6 +71,7 @@ public class KNClassifier
                 Integer[] labelGet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 while (!kElements.isEmpty())
                 {
+                    Integer distance = kElements.peek()[0];
                     Integer temp = kElements.poll()[1];
                     labelGet[temp] += 1;
                 }
@@ -95,8 +97,10 @@ public class KNClassifier
                 //and if the label doesn't match the input label, print a line.
                 if (testing[testing.length-1] != greatest)
                 {
+                    numErrors++;
                     System.out.println(testing[testing.length-1] + "\t" + greatest);
                 }
+
 
                 //tidy up for the next loop
                 kElements.clear();
@@ -104,10 +108,9 @@ public class KNClassifier
             }
             
 
+        System.out.println("Number of errors: " + numErrors + " / " + baseList.size());
         }
 
-        System.out.println("Hello World!");
-        System.out.println(baseList.size());
     }
 
 
