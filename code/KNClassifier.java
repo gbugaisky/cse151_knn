@@ -59,7 +59,13 @@ public class KNClassifier
 				}
 
 				//figure out which of the labels we should use
-				
+				Integer[10] labelGet = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                while !(kElements.isEmpty())
+                {
+                    Integer temp = kElements.poll()[1];
+                    labelGet[temp - 1] += 1;
+                }
+                
 				//and if the label doesn't match the input label, print a line.
 
 				//tidy up for the next loop
