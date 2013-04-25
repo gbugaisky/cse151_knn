@@ -20,7 +20,7 @@ public class KNClassifier
         //System.out.println("Number of spaces: " + exampleLine.split(" ").length);
 
         //1. Read first data to test
-        File validate = new File("../data/hw2test.txt");
+        File validate = new File("../data/hw2train.txt");
         testList = readFile(validate);
 
         //for each value of k

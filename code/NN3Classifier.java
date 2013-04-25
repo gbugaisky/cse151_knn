@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import java.lang.Math;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.text.DecimalFormat;
 
 public class NN3Classifier
 {
@@ -101,12 +102,29 @@ public class NN3Classifier
             
         }
         
+        //now we need the totals in each column to create the fraction
+        int[] totalLabels = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        for (int i = 0; i < 10; i++)
+        {
+            totalLabels[i] = confusionMatrix[0][i] + confusionMatrix[1][i] + confusionMatrix[2][i] + confusionMatrix[3][i] + confusionMatrix[4][i] + confusionMatrix[5][i] + confusionMatrix[6][i] + confusionMatrix[7][i] + confusionMatrix[8][i] + confusionMatrix[9][i]; 
+        }
+
+
+        DecimalFormat df = new DecimalFormat("##.####"); 
+        int column = 0;
         //Print the conusion matrix as a nice table
         for (int[] row : confusionMatrix )
         {
+            column = 0;
             for (int i : row)
             {
-                System.out.print(i + "\t");
+                float fraction = ( (float) i)/totalLabels[column];
+                if (fraction == 0)
+                    System.out.print( "0       ");
+                else
+                    System.out.print( df.format(fraction) + "  ");
+                column++;
             }
             System.out.print("\n");
         }
